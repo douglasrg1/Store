@@ -9,7 +9,7 @@ create table[Customer](
 
 create table [Address](
     [Id] UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,
-    [CustomerId] UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,
+    [CustomerId] UNIQUEIDENTIFIER NOT NULL,
     [NumberAddress] VARCHAR(10) NOT NULL,
     [Complement] VARCHAR(60) NOT NULL,
     [District] VARCHAR(60) NOT NULL,
@@ -32,7 +32,7 @@ create table[Product](
 
 create table [Order](
     [Id] UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,
-    [CustomerId] UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,
+    [CustomerId] UNIQUEIDENTIFIER NOT NULL,
     [CreateDate] DATETIME NOT NULL default(getdate()),
     [Status] int not NULL default(1),
     foreign KEY ([CustomerId]) references [Customer]([Id])
@@ -40,8 +40,8 @@ create table [Order](
 
 create table [OrderItem](
     [Id] UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,
-    [OrderId] UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,
-    [ProductId] UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,
+    [OrderId] UNIQUEIDENTIFIER NOT NULL,
+    [ProductId] UNIQUEIDENTIFIER NOT NULL,
     [Quantity] Decimal(10,2) not NULL,
     [Price] MONEY not NULL,
     foreign KEY ([OrderId]) references [Order]([Id]),
@@ -50,7 +50,7 @@ create table [OrderItem](
 
 create table [Delivery](
     [Id] UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,
-    [OrderId] UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,
+    [OrderId] UNIQUEIDENTIFIER NOT NULL,
     [CreateDate] DATETIME NOT NULL default(getdate()),
     [EstimatedDeliveryDate] DATETIME not NULL,
     [Status] int NOT NULL default(1),
