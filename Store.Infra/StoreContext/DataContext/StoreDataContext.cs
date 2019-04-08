@@ -1,0 +1,23 @@
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using Store.Shared;
+
+namespace Store.Infra.StoreContext.DataContext
+{
+    public class StoreDataContext : IDisposable
+    {
+        public SqlConnection Connection {get;set;}
+
+        public StoreDataContext()
+        {
+            Connection = new SqlConnection(ConnectionSettings.ConnectionString);
+            Connection.Open();
+        }
+        public void Dispose()
+        {
+            if(Connection.State != ConnectionState.Closed)
+                Connection.Close();
+        }
+    }
+}

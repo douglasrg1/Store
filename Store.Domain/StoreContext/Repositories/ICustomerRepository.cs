@@ -1,4 +1,5 @@
 using Store.Domain.StoreContext.Entities;
+using Store.Domain.StoreContext.Queries;
 
 namespace Store.Domain.StoreContext.Repositories{
 
@@ -9,5 +10,6 @@ namespace Store.Domain.StoreContext.Repositories{
         void Save(Customer customer);
         void Update(Customer customer);
         void Remove(Customer customer);
+        CustomerOrderCountResults GetCustomerOrders(string document);
     }
 }
