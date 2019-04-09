@@ -1,3 +1,6 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using Store.Domain.StoreContext.Entities;
 using Store.Domain.StoreContext.Queries;
 
@@ -11,5 +14,8 @@ namespace Store.Domain.StoreContext.Repositories{
         void Update(Customer customer);
         void Remove(Customer customer);
         CustomerOrderCountResults GetCustomerOrders(string document);
+        IEnumerable<ListCustomerQueryResult> Get();
+        CustomerQueryResult GetById(Guid id);
+        IEnumerable <ListCustomerOrdersQueryResult> GetOrders( Guid id);
     }
 }

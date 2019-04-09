@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Dapper;
@@ -35,6 +37,23 @@ namespace Store.Infra.Repository
             .FirstOrDefault();
         }
 
+        public IEnumerable<ListCustomerQueryResult> Get()
+        {
+            return _context.Connection
+            .Query<ListCustomerQueryResult>(
+                "spReturnListCustomer",null,
+                commandType: CommandType.StoredProcedure);
+        }
+
+        public CustomerQueryResult GetById(Guid id)
+        {
+            return _context.Connection
+            .Query<CustomerQueryResult>(
+                "spReturnCustomer",new{Id = id},
+                commandType: CommandType.StoredProcedure)
+                .FirstOrDefault();
+        }
+
         public CustomerOrderCountResults GetCustomerOrders(string document)
         {
             return _context.Connection
@@ -42,6 +61,14 @@ namespace Store.Infra.Repository
                 "spGetCustomerOrderCount", new { Document = document },
                 commandType: CommandType.StoredProcedure)
             .FirstOrDefault();
+        }
+
+        public IEnumerable<ListCustomerOrdersQueryResult> GetOrders(Guid id)
+        {
+            return _context.Connection
+            .Query<ListCustomerOrdersQueryResult>(
+                "spReturnListCustomerOrders",new{Id = id},
+                commandType: CommandType.StoredProcedure);
         }
 
         public void Remove(Customer customer)
