@@ -3,55 +3,61 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Store.Domain.StoreContext.Commands.CustomerCommand.Inputs;
 using Store.Domain.StoreContext.Entities;
+using Store.Domain.StoreContext.Handlers;
 using Store.Domain.StoreContext.Queries;
 using Store.Domain.StoreContext.Repositories;
+using Store.Shared.Command;
 
 namespace Store.Api.Controllers
 {
     public class CustomerController : Controller
     {
         private readonly ICustomerRepository _repository;
-        public CustomerController(ICustomerRepository repository)
+        private readonly CustomerHandlers _handle;
+        public CustomerController(ICustomerRepository repository,CustomerHandlers handle)
         {
             _repository = repository;
+            _handle = handle;
         }
 
         [HttpGet]
-        [Route("clientes")]
+        [Route("v1/clientes")]
         public IEnumerable <ListCustomerQueryResult> Get()
         {
             return _repository.Get();
         }
         [HttpGet]
-        [Route("clientes/{id}")]
+        [Route("v1/clientes/{id}")]
         public CustomerQueryResult GetById(Guid id )
         {
             return _repository.GetById(id);
         }
 
         [HttpGet]
-        [Route("clientes/{id}/orders")]
+        [Route("v1/clientes/{id}/orders")]
         public IEnumerable<ListCustomerOrdersQueryResult> GetOrders(Guid id)
         {
             return _repository.GetOrders(id);
         }
 
         [HttpPost]
-        [Route("clientes")]
-        public Customer PostCustomer([FromBody]CreateCustomerCommand customer)
+        [Route("v1/clientes")]
+        public ICommandResult PostCustomer([FromBody]CreateCustomerCommand customer)
         {
-            return null;
+            var result = _handle.Handle(customer);
+            
+            return result;
         }
 
         [HttpPut]
-        [Route("clientes")]
+        [Route("v1/clientes")]
         public Customer PutCustomer([FromBody]Customer customer)
         {
             return null;
         }
 
         [HttpDelete]
-        [Route("clientes/{id}")]
+        [Route("v1/clientes/{id}")]
         public Customer DeleteCustomer(Guid id)
         {
             return null;

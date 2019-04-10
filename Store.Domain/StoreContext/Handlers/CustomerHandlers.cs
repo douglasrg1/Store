@@ -47,7 +47,7 @@ namespace Store.Domain.StoreContext.Handlers
             AddNotifications(customer.Notifications);
 
             if(Invalid)
-                return null;
+                return new CustomerResult(false,"Erro nos campos Iformados",Notifications);;
 
             //persistir o cliente
             _customer.Save(customer);
@@ -57,7 +57,7 @@ namespace Store.Domain.StoreContext.Handlers
             
             // retornar o resultado
 
-            return new CreateCustomerResult(customer.Id,name.ToString(),document.Number);
+            return new CustomerResult(true,"Cadastro realizado com sucesso",new{Name = customer.Name.ToString(),Id = customer.Id,Email = customer.Email});
         }
 
         public ICommandResult Handle(AddAddressCommand Command)

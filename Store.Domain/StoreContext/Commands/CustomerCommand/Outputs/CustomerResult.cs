@@ -4,9 +4,9 @@ using Store.Shared.Command;
 namespace Store.Domain.StoreContext.Commands.CustomerCommand.Outputs
 {
 
-    public class CreateCustomerResult : ICommandResult
+    public class CustomerResult : ICommandResult
     {
-        public CreateCustomerResult(bool success, string message, object data)
+        public CustomerResult(bool success, string message, object data)
         {
             Success = success;
             this.message = message;
