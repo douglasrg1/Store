@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Store.Domain.StoreContext.Handlers;
 using Store.Domain.StoreContext.Repositories;
@@ -13,15 +8,23 @@ using Store.Infra.Repository;
 using Store.Infra.StoreContext.DataContext;
 using Store.Infra.StoreContext.Services;
 using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+using Store.Shared;
 
 namespace Store.Api
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        public static IConfiguration Configuration { get; set; }
         public void ConfigureServices(IServiceCollection services)
         {
+            var builder = new ConfigurationBuilder()
+                        .SetBasePath(Directory.GetCurrentDirectory())
+                        .AddJsonFile("AppSettings.json");
+
+            Configuration = builder.Build();
+
             services.AddMvc();
 
             services.AddResponseCompression();
@@ -35,6 +38,8 @@ namespace Store.Api
             {
                 x.SwaggerDoc("v1", new Info { Title = "StoreApi", Version = "V1" });
             });
+
+            ConnectionSettings.ConnectionString = Configuration["connectionString"];
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
