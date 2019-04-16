@@ -7,7 +7,19 @@ namespace Store.Domain.StoreContext.Commands.CustomerCommand.Inputs
 
     public class AddAddressCommand : ICommand
     {
-        public Guid Id { get; private set; }
+        public AddAddressCommand(string street, string number, string complement, string district, string city, string state, string country, string zipCode, EAddressType addressType)
+        {
+            Street = street;
+            Number = number;
+            Complement = complement;
+            District = district;
+            City = city;
+            State = state;
+            Country = country;
+            ZipCode = zipCode;
+            AddressType = addressType;
+        }
+
         public string Street { get; private set; }
         public string Number { get; private set; }
         public string Complement { get; private set; }

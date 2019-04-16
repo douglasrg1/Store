@@ -4,6 +4,10 @@ namespace Store.Domain.StoreContext.Queries
 {
     public class ListCustomerQueryResult
     {
+        public ListCustomerQueryResult()
+        {
+            
+        }
         public ListCustomerQueryResult(Guid id, string name, string document, string email)
         {
             Id = id;
