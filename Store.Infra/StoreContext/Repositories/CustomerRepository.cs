@@ -99,14 +99,14 @@ namespace Store.Infra.Repository
                     new{
                         Id = Address.Id,
                         CustomerId = customer.Id,
-                        Number = Address.Number,
+                        NumberAddress = Address.Number,
                         Complement = Address.Complement,
                         District = Address.District,
                         City = Address.City,
                         State = Address.State,
                         Country = Address.Country,
                         ZipCode = Address.ZipCode,
-                        Type = Address.AddressType
+                        TypeAddress = Address.AddressType
                     },commandType: CommandType.StoredProcedure
                 );
             }

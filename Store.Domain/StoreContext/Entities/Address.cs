@@ -1,5 +1,7 @@
 
+using System;
 using FluentValidator;
+using FluentValidator.Validation;
 using Store.Domain.StoreContext.Enums;
 using Store.Shared.Entities;
 
@@ -18,6 +20,19 @@ namespace Store.Domain.StoreContext.Entities
             Country = country;
             ZipCode = zipCode;
             AddressType = addressType;
+
+            AddNotifications(new ValidationContract()
+                .Requires()
+                .IsFalse(number.Length == 0,"Address","O numero de endereco informado não é valído")
+                .IsNotNullOrEmpty(street,"Address","O campo rua do endereço informado não é valído")
+                .IsNotNullOrEmpty(Complement,"Complement","O campo Complemento do endereço informado não é valído")
+                .IsNotNullOrEmpty(District,"District","O campo bairro do endereço informado não é valído")
+                .IsNotNullOrEmpty(City,"City","O campo cidade do endereço informado não é valído")
+                .IsNotNullOrEmpty(State,"State","O campo estado do endereço informado não é valído")
+                .IsNotNullOrEmpty(Country,"Country","O campo pais do endereço informado não é valído")
+                .IsNotNullOrEmpty(ZipCode,"ZipCode","O campo Código Postal do endereço informado não é valído")
+
+            );
         }
 
         public string Street { get; private set; }

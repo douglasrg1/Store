@@ -18,7 +18,7 @@ namespace Store.Domain.StoreContext.Commands.OrderCommands.Inputs
         public IList<OrderItemCommand> OrderItems { get; private set; }
     }
 
-    public class OrderItemCommand
+    public class OrderItemCommand : ICommand
     {
         public OrderItemCommand(Guid product, decimal price, decimal quantity)
         {

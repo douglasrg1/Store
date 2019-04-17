@@ -28,7 +28,7 @@ namespace Store.Domain.StoreContext.Entities
         public void AddAddress(Address address)
         {
             //valida o endereco
-
+            AddNotifications(address.Notifications);
             _addresses.Add(address);
         }
     }
