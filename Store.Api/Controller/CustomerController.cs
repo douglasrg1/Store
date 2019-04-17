@@ -51,7 +51,7 @@ namespace Store.Api.Controllers
 
         [HttpPut]
         [Route("v1/clientes")]
-        public Customer PutCustomer([FromBody]Customer customer)
+        public ICommandResult PutCustomer([FromBody]UpdateCustomerCommand customer)
         {
             return null;
         }

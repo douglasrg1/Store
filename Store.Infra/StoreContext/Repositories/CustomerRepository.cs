@@ -45,6 +45,14 @@ namespace Store.Infra.Repository
                 commandType: CommandType.StoredProcedure);
         }
 
+        public IEnumerable<ListCustomerAdresses> GetAddresses(Guid id)
+        {
+            return _context.Connection
+            .Query<ListCustomerAdresses>(
+                "spReturnCustomerAddresses",new{Id = id},
+                commandType:CommandType.StoredProcedure).ToList();
+        }
+
         public CustomerQueryResult GetById(Guid id)
         {
             return _context.Connection
@@ -99,6 +107,7 @@ namespace Store.Infra.Repository
                     new{
                         Id = Address.Id,
                         CustomerId = customer.Id,
+                        Street = Address.Street,
                         NumberAddress = Address.Number,
                         Complement = Address.Complement,
                         District = Address.District,

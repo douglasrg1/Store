@@ -24,6 +24,11 @@ namespace Store.Tests.Fake
             return null;
         }
 
+        public IEnumerable<ListCustomerAdresses> GetAddresses(Guid id)
+        {
+            return null;
+        }
+
         public CustomerQueryResult GetById(Guid id)
         {
             return null;

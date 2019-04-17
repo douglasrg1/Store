@@ -1,6 +1,7 @@
 CREATE PROCEDURE spSaveAddress
     @Id UNIQUEIDENTIFIER,
     @CustomerId UNIQUEIDENTIFIER,
+    @Street VARCHAR(50),
     @NumberAddress VARCHAR(10),
     @Complement VARCHAR(60),
     @District VARCHAR(60),
@@ -14,6 +15,7 @@ AS
     INSERT INTO [Address](
         [Id],
         [CustomerId],
+        [Street],
         [NumberAddress],
         [Complement],
         [District],
@@ -26,6 +28,7 @@ AS
     VALUES(
     @Id,
     @CustomerId,
+    @Street,
     @NumberAddress,
     @Complement,
     @District,

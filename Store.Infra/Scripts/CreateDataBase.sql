@@ -10,6 +10,7 @@ create table[Customer](
 create table [Address](
     [Id] UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,
     [CustomerId] UNIQUEIDENTIFIER NOT NULL,
+    [Street] VARCHAR(50) NOT NULL,
     [NumberAddress] VARCHAR(10) NOT NULL,
     [Complement] VARCHAR(60) NOT NULL,
     [District] VARCHAR(60) NOT NULL,

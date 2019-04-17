@@ -14,7 +14,7 @@ namespace Store.Domain.StoreContext.Handlers
 
     public class CustomerHandlers : Notifiable,
      ICommandHandler<CreateCustomerCommand>,
-     ICommandHandler<AddAddressCommand>
+     ICommandHandler<UpdateCustomerCommand>
     {
 
         private readonly ICustomerRepository _customer;
@@ -70,9 +70,43 @@ namespace Store.Domain.StoreContext.Handlers
             return new CustomerResult(true, "Cadastro realizado com sucesso", new { Name = customer.Name.ToString(), Id = customer.Id, Email = customer.Email.Address });
         }
 
-        public ICommandResult Handle(AddAddressCommand Command)
+        public ICommandResult Handle(UpdateCustomerCommand Command)
         {
-            throw new System.NotImplementedException();
+            //criar vos
+            var name = new Name(Command.FirstName, Command.LastName);
+            var document = new Document(Command.Document);
+            var email = new Email(Command.Email);
+
+            // criar entidade
+            var customer = new Customer(name, document, email, Command.Phone);
+            if (Command.Addresses.Count() > 0)
+            {
+                foreach (var item in Command.Addresses)
+                {
+                    var address = new Address(item.Street, item.Number, item.Complement, item.District, item.City, item.State, item.Country, item.ZipCode, item.AddressType);
+                    customer.AddAddress(address);
+                }
+            }
+
+
+            //validar entidades vos
+            AddNotifications(name.Notifications);
+            AddNotifications(document.Notifications);
+            AddNotifications(email.Notifications);
+            AddNotifications(customer.Notifications);
+
+            if (Invalid)
+                return new CustomerResult(false, "Erro nos campos Iformados", Notifications); ;
+
+            //persistir o cliente
+            _customer.Save(customer);
+
+            //enviar email boas vindas
+            _email.Send(Command.Email, "teste@teste", "Bem vindo", "mensagem de boas vindas");
+
+            // retornar o resultado
+
+            return new CustomerResult(true, "Cadastro realizado com sucesso", new { Name = customer.Name.ToString(), Id = customer.Id, Email = customer.Email.Address });
         }
     }
 }
