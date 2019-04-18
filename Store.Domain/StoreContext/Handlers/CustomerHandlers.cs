@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using FluentValidator;
 using Store.Domain.StoreContext.Commands.CustomerCommand.Inputs;
@@ -78,9 +80,11 @@ namespace Store.Domain.StoreContext.Handlers
             var email = new Email(Command.Email);
 
             // criar entidade
-            var customer = new Customer(name, document, email, Command.Phone);
+            var customer = new Customer(Command.Customer, name, document, email, Command.Phone);
             if (Command.Addresses.Count() > 0)
             {
+                var addressA = _customer.GetAddresses(customer.Id).ToList();
+                var addressFinal = Command.Addresses.ToList();
                 foreach (var item in Command.Addresses)
                 {
                     var address = new Address(item.Street, item.Number, item.Complement, item.District, item.City, item.State, item.Country, item.ZipCode, item.AddressType);
@@ -99,7 +103,7 @@ namespace Store.Domain.StoreContext.Handlers
                 return new CustomerResult(false, "Erro nos campos Iformados", Notifications); ;
 
             //persistir o cliente
-            _customer.Save(customer);
+            _customer.Update(customer);
 
             //enviar email boas vindas
             _email.Send(Command.Email, "teste@teste", "Bem vindo", "mensagem de boas vindas");

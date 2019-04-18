@@ -53,7 +53,9 @@ namespace Store.Api.Controllers
         [Route("v1/clientes")]
         public ICommandResult PutCustomer([FromBody]UpdateCustomerCommand customer)
         {
-            return null;
+            var result = _handle.Handle(customer);
+            
+            return result;
         }
 
         [HttpDelete]

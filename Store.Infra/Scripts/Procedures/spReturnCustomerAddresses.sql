@@ -16,4 +16,4 @@ as
     from
        [Address]
     where
-        @Id = [Id]
+        @Id = [CustomerId]

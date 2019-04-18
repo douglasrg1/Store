@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using FluentValidator;
@@ -10,6 +11,16 @@ namespace Store.Domain.StoreContext.Entities
     public class Customer : Entity
     {
         private readonly ICollection<Address> _addresses;
+
+        public Customer(Guid id,Name name, Document document, Email email, string phone)
+        :base(id.ToString())
+        {
+            Name = name;
+            Document = document;
+            Email = email;
+            Phone = phone;
+            _addresses = new List<Address>();
+        }
         public Customer(Name name, Document document, Email email, string phone)
         {
             Name = name;
