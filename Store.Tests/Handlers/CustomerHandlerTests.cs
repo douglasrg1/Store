@@ -34,6 +34,28 @@ namespace Store.Tests.Handlers
             Assert.AreNotEqual(false, result.Success);
             Assert.AreEqual(true, handler.IsValid);
         }
+        [TestMethod]
+        public void ShouldUpdateCustomerWhenCommandIsValid()
+        {
+            var ad = new AddAddressCommand("Rua dona mariinha", "96", "Casa 2", "Santo Antonio", "Viçosa", "MG", "Brasil"
+                                , "36570000", EAddressType.Shipping);
+            var ad2 = new AddAddressCommand("Rua dona mariinha", "96", "Casa 2", "Santo Antonio", "Viçosa", "MG", "Brasil"
+                                , "36570000", EAddressType.Shipping);
+
+            var address = new List<AddAddressCommand>();
+            address.Add(ad);
+            address.Add(ad2);
+
+            var command = new UpdateCustomerCommand(Guid.NewGuid(),"Douglas", "Rocha", "09752725600", "teste@teste.com", "38914821", address);
+
+            var handler = new CustomerHandlers(new FakeCustomerRepository(), new FakeEmailService());
+
+            var result = handler.Handle(command);
+            Console.WriteLine(result);
+
+            Assert.AreNotEqual(false, result.Success);
+            Assert.AreEqual(true, handler.IsValid);
+        }
         
     }
 }
