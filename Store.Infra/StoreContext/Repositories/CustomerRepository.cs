@@ -124,7 +124,40 @@ namespace Store.Infra.Repository
 
         public void Update(Customer customer)
         {
-            throw new System.NotImplementedException();
+            _context.Connection.Execute(
+                "spUpdateCustomer",
+                new
+                {
+                    Id = customer.Id,
+                    FirstName = customer.Name.FirstName,
+                    LastName = customer.Name.LastName,
+                    Document = customer.Document.Number,
+                    Email = customer.Email.Address,
+                    Phone = customer.Phone
+                },
+                commandType: CommandType.StoredProcedure
+            );
+
+            foreach (var Address in customer.Addresses)
+            {
+                _context.Connection.Execute(
+                    "spSaveAddress",
+                    new
+                    {
+                        Id = Address.Id,
+                        CustomerId = customer.Id,
+                        Street = Address.Street,
+                        NumberAddress = Address.Number,
+                        Complement = Address.Complement,
+                        District = Address.District,
+                        City = Address.City,
+                        State = Address.State,
+                        Country = Address.Country,
+                        ZipCode = Address.ZipCode,
+                        TypeAddress = Address.AddressType
+                    }, commandType: CommandType.StoredProcedure
+                );
+            }
         }
         public void RemoveAddressesCustomer(Guid customerId)
         {

@@ -112,7 +112,7 @@ namespace Store.Domain.StoreContext.Handlers
 
             // retornar o resultado
 
-            return new CustomerResult(true, "Cadastro realizado com sucesso", new { Name = customer.Name.ToString(), Id = customer.Id, Email = customer.Email.Address });
+            return new CustomerResult(true, "Cadastro atualizado com sucesso", new { Name = customer.Name.ToString(), Id = customer.Id, Email = customer.Email.Address });
         }
 
     }
