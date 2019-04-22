@@ -11,6 +11,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 using Store.Shared;
+using Store.Infra.StoreContext.Repositories;
 
 namespace Store.Api
 {
@@ -30,6 +31,7 @@ namespace Store.Api
             services.AddResponseCompression();
 
             services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<CustomerHandlers, CustomerHandlers>();
             services.AddScoped<StoreDataContext, StoreDataContext>();

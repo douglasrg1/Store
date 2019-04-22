@@ -12,7 +12,7 @@ namespace Store.Domain.StoreContext.Entities
     {
         private readonly ICollection<OrderItem> _itens;
         private readonly ICollection<Delivery> _deliveries;
-        public Order(Customer customer)
+        public Order(Guid customer)
         {
             Customer = customer;
             NumberOrder = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 8);
@@ -22,7 +22,7 @@ namespace Store.Domain.StoreContext.Entities
             _deliveries = new List<Delivery>();
         }
 
-        public Customer Customer { get; private set; }
+        public Guid Customer { get; private set; }
         public string NumberOrder { get; private set; }
         public DateTime CreateDate { get; private set; }
         public EOrderStatus Status { get; private set; }
@@ -31,6 +31,7 @@ namespace Store.Domain.StoreContext.Entities
 
         public void Additem(OrderItem item)
         {
+            AddNotifications(item.Notifications);
             _itens.Add(item);
         }
         public void AddDelivery(Delivery delivery)

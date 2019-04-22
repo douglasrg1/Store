@@ -1,5 +1,6 @@
 using System;
 using FluentValidator;
+using FluentValidator.Validation;
 
 namespace Store.Domain.StoreContext.Entities
 {
@@ -11,6 +12,13 @@ namespace Store.Domain.StoreContext.Entities
             Product = product;
             Quantity = quantity;
             Price = price;
+
+            AddNotifications(new ValidationContract()
+            .Requires()
+            .IsLowerOrEqualsThan(0,quantity,"Quantidade","Quantidade do produto não pode ser menor ou igual a 0")
+            .IsNotNull(price,"Price","O valor do produto não pode ser nulo")
+            .IsNotNull(product,"Product","O campo do produto não pode ser nulo")
+            );
 
             if(quantity > product.QuantityOnHand)
                 AddNotification("OrderItem",$"Quantidade do produto {product.Title} indisponivel");

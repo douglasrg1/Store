@@ -23,7 +23,7 @@ namespace Store.Tests
 
             var c = new Customer(name,document,email,"23423423423");
 
-            var order = new Order(c);
+            var order = new Order(c.Id);
 
             order.Additem(new OrderItem(mouse,5,10));
             order.Additem(new OrderItem(teclado,5,10));

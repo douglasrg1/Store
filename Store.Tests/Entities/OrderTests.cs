@@ -22,7 +22,7 @@ namespace Store.Tests.Entities
             var document = new Document("12345678912");
             var email = new Email("douglas@teste.com.br");
             _customer = new Customer(name, document, email, "31987367301");
-            _order = new Order(_customer);
+            _order = new Order(_customer.Id);
             _mouse = new Product("mouse", "mouse", "mouse.png", 10, 10);
             _keyboard = new Product("teclado", "teclado", "teclado.png", 10, 10);
             _chair = new Product("chair", "chair", "chair.png", 10, 10);
