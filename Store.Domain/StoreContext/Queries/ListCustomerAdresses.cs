@@ -20,7 +20,7 @@ namespace Store.Domain.StoreContext.Queries
             State = state;
             Country = country;
             ZipCode = zipCode;
-            AddressType = addressType;
+            TypeAddress = addressType;
         }
 
         public string Street { get; private set; }
@@ -31,6 +31,6 @@ namespace Store.Domain.StoreContext.Queries
         public string State { get; private set; }
         public string Country { get; private set; }
         public string ZipCode { get; private set; }
-        public EAddressType AddressType { get; private set; }
+        public EAddressType TypeAddress { get; private set; }
     }
 }

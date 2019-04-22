@@ -41,7 +41,7 @@ namespace Store.Infra.Repository
         {
             return _context.Connection
             .Query<ListCustomerQueryResult>(
-                "spReturnListCustomer",null,
+                "spReturnListCustomer", null,
                 commandType: CommandType.StoredProcedure);
         }
 
@@ -49,15 +49,15 @@ namespace Store.Infra.Repository
         {
             return _context.Connection
             .Query<ListCustomerAdresses>(
-                "spReturnCustomerAddresses",new{Id = id},
-                commandType:CommandType.StoredProcedure).ToList();
+                "spReturnCustomerAddresses", new { Id = id },
+                commandType: CommandType.StoredProcedure).ToList();
         }
 
         public CustomerQueryResult GetById(Guid id)
         {
             return _context.Connection
             .Query<CustomerQueryResult>(
-                "spReturnCustomer",new{Id = id},
+                "spReturnCustomer", new { Id = id },
                 commandType: CommandType.StoredProcedure)
                 .FirstOrDefault();
         }
@@ -75,7 +75,7 @@ namespace Store.Infra.Repository
         {
             return _context.Connection
             .Query<ListCustomerOrdersQueryResult>(
-                "spReturnListCustomerOrders",new{Id = id},
+                "spReturnListCustomerOrders", new { Id = id },
                 commandType: CommandType.StoredProcedure);
         }
 
@@ -104,7 +104,8 @@ namespace Store.Infra.Repository
             {
                 _context.Connection.Execute(
                     "spSaveAddress",
-                    new{
+                    new
+                    {
                         Id = Address.Id,
                         CustomerId = customer.Id,
                         Street = Address.Street,
@@ -116,7 +117,7 @@ namespace Store.Infra.Repository
                         Country = Address.Country,
                         ZipCode = Address.ZipCode,
                         TypeAddress = Address.AddressType
-                    },commandType: CommandType.StoredProcedure
+                    }, commandType: CommandType.StoredProcedure
                 );
             }
         }
@@ -124,6 +125,12 @@ namespace Store.Infra.Repository
         public void Update(Customer customer)
         {
             throw new System.NotImplementedException();
+        }
+        public void RemoveAddressesCustomer(Guid customerId)
+        {
+            _context.Connection.Execute(
+                "spRemoverAddress",new{CustomerId = customerId},commandType:CommandType.StoredProcedure
+            );
         }
     }
 }

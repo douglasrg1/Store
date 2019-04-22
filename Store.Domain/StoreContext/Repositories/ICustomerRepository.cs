@@ -18,5 +18,6 @@ namespace Store.Domain.StoreContext.Repositories{
         CustomerQueryResult GetById(Guid id);
         IEnumerable <ListCustomerOrdersQueryResult> GetOrders( Guid id);
         IEnumerable <ListCustomerAdresses> GetAddresses( Guid id);
+        void RemoveAddressesCustomer(Guid customerId);
     }
 }

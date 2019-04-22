@@ -6,6 +6,7 @@ using FluentValidator;
 using Store.Domain.StoreContext.Commands.CustomerCommand.Inputs;
 using Store.Domain.StoreContext.Commands.CustomerCommand.Outputs;
 using Store.Domain.StoreContext.Entities;
+using Store.Domain.StoreContext.Queries;
 using Store.Domain.StoreContext.Repositories;
 using Store.Domain.StoreContext.Services;
 using Store.Domain.StoreContext.ValueObjects;
@@ -83,9 +84,10 @@ namespace Store.Domain.StoreContext.Handlers
             var customer = new Customer(Command.Customer, name, document, email, Command.Phone);
             if (Command.Addresses.Count() > 0)
             {
-                var addressA = _customer.GetAddresses(customer.Id).ToList();
-                var addressFinal = Command.Addresses.ToList();
-                foreach (var item in Command.Addresses)
+                _customer.RemoveAddressesCustomer(Command.Customer);
+                var addressSends = Command.Addresses.ToList();
+                
+                foreach (var item in addressSends)
                 {
                     var address = new Address(item.Street, item.Number, item.Complement, item.District, item.City, item.State, item.Country, item.ZipCode, item.AddressType);
                     customer.AddAddress(address);
@@ -100,7 +102,7 @@ namespace Store.Domain.StoreContext.Handlers
             AddNotifications(customer.Notifications);
 
             if (Invalid)
-                return new CustomerResult(false, "Erro nos campos Iformados", Notifications); ;
+                return new CustomerResult(false, "Erro nos campos Iformados", Notifications);
 
             //persistir o cliente
             _customer.Update(customer);
@@ -112,5 +114,6 @@ namespace Store.Domain.StoreContext.Handlers
 
             return new CustomerResult(true, "Cadastro realizado com sucesso", new { Name = customer.Name.ToString(), Id = customer.Id, Email = customer.Email.Address });
         }
+
     }
 }
