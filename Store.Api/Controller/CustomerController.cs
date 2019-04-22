@@ -39,6 +39,12 @@ namespace Store.Api.Controllers
         {
             return _repository.GetOrders(id);
         }
+        [HttpGet]
+        [Route("v1/clientes/{id}/addresses")]
+        public IEnumerable<ListCustomerAdresses> GetAddresses(Guid id)
+        {
+            return _repository.GetAddresses(id);
+        }
 
         [HttpPost]
         [Route("v1/clientes")]

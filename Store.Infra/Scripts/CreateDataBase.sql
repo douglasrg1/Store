@@ -36,6 +36,8 @@ create table [Order](
     [CustomerId] UNIQUEIDENTIFIER NOT NULL,
     [CreateDate] DATETIME NOT NULL default(getdate()),
     [Status] int not NULL default(1),
+    [NumberOrder] VARCHAR(50) not NULL,
+    [Total] MONEY not NULL,
     foreign KEY ([CustomerId]) references [Customer]([Id])
 )
 
