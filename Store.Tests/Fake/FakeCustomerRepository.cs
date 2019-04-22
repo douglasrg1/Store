@@ -49,6 +49,11 @@ namespace Store.Tests.Fake
             
         }
 
+        public void RemoveAddressesCustomer(Guid customerId)
+        {
+            
+        }
+
         public void Save(Customer customer)
         {
             
