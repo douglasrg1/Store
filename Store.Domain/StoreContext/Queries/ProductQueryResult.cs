@@ -1,3 +1,5 @@
+using System;
+
 namespace Store.Domain.StoreContext.Queries
 {
     public class ProductQueryResult

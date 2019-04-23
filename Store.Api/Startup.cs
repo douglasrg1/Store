@@ -34,6 +34,7 @@ namespace Store.Api
             services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<CustomerHandlers, CustomerHandlers>();
+            services.AddTransient<OrderHandlers, OrderHandlers>();
             services.AddScoped<StoreDataContext, StoreDataContext>();
 
             services.AddSwaggerGen(x =>

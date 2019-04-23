@@ -1,3 +1,4 @@
+using System;
 using FluentValidator;
 using Store.Shared.Entities;
 
@@ -6,6 +7,15 @@ namespace Store.Domain.StoreContext.Entities
 
     public class Product : Entity
     {
+        public Product(Guid id,string title, string description, string image, decimal price, decimal quantityOnHand)
+        :base(id.ToString())
+        {
+            Title = title;
+            Description = description;
+            Image = image;
+            Price = price;
+            QuantityOnHand = quantityOnHand;
+        }
         public Product(string title, string description, string image, decimal price, decimal quantityOnHand)
         {
             Title = title;
