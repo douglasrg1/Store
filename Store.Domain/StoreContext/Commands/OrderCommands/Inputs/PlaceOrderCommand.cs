@@ -8,14 +8,15 @@ namespace Store.Domain.StoreContext.Commands.OrderCommands.Inputs
 
     public class PlaceOrderCommand : ICommand
     {
+        private readonly ICollection<OrderItemCommand> _orderItens;
         public PlaceOrderCommand(Guid customer, IList<OrderItemCommand> orderItems)
         {
             Customer = customer;
-            OrderItems = orderItems;
+            _orderItens = orderItems;
         }
 
         public Guid Customer { get; private set; }
-        public IList<OrderItemCommand> OrderItems { get; private set; }
+        public IEnumerable<OrderItemCommand> OrderItems { get{return _orderItens;} }
     }
 
     public class OrderItemCommand : ICommand

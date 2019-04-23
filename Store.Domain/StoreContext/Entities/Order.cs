@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using Store.Domain.StoreContext.Enums;
 using System.Linq;
 using FluentValidator;
+using Store.Shared.Entities;
 
 namespace Store.Domain.StoreContext.Entities
 {
 
-    public class Order : Notifiable
+    public class Order : Entity
     {
         private readonly ICollection<OrderItem> _itens;
         private readonly ICollection<Delivery> _deliveries;
@@ -28,6 +29,7 @@ namespace Store.Domain.StoreContext.Entities
         public EOrderStatus Status { get; private set; }
         public IEnumerable<OrderItem> OrderItens { get { return _itens; } }
         public IEnumerable<Delivery> Deliveries { get { return _deliveries; } }
+        public decimal Total{get{return OrderItens.Sum(x=>x.Price * x.Quantity);}}
 
         public void Additem(OrderItem item)
         {

@@ -22,12 +22,17 @@ namespace Store.Domain.StoreContext.Handlers
             //criar entidades
             var order = new Order(Command.Customer);
 
-            if (Command.OrderItems.Count > 0)
+            if (Command.OrderItems.Count() > 0)
             {
                 foreach (var item in Command.OrderItems)
                 {
                     var product = _reposotory.GetProductById(item.product);
-                    var i = new OrderItem(product, item.quantity, item.price);
+                    
+                    var i = new OrderItem(new Product(
+                        product.Title,product.Description,
+                        product.Image,product.Price,
+                        product.QuantityOnHand), item.quantity, item.price);
+
                     order.Additem(i);
                 }
             }
