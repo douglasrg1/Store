@@ -10,7 +10,8 @@ namespace Store.Domain.StoreContext.Handlers
 {
 
     public class OrderHandlers : Notifiable,
-     ICommandHandler<PlaceOrderCommand>
+     ICommandHandler<PlaceOrderCommand>,
+     ICommandHandler<ShipOrderCommand>
     {
         private readonly IOrderRepository _reposotory;
         public OrderHandlers(IOrderRepository orderRepository)
@@ -44,6 +45,21 @@ namespace Store.Domain.StoreContext.Handlers
             _reposotory.Save(order);
 
             return new Result(true,"Dados adicionados com sucesso",new{NumberOrder = order.NumberOrder,CreateDate = order.CreateDate,Status = order.Status});
+        }
+
+        public ICommandResult Handle(ShipOrderCommand Command)
+        {
+            //cria a entidade
+            var delivery = new Delivery(Command.EstimatedDelivery,Command.OrderId);
+            AddNotifications(delivery.Notifications);
+
+            if(Invalid)
+                return new Result(false,"Os seguintes campos estão com dados incorretos",delivery.Notifications);
+
+            _reposotory.AddShip(delivery);
+
+            return new Result(true,"Entrega adicionado ao pedido",new{NumberShip = delivery.Id});
+
         }
     }
 }

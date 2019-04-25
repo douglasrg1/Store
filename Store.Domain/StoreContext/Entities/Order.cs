@@ -54,7 +54,7 @@ namespace Store.Domain.StoreContext.Entities
 
         public void Ship()
         {
-            var delivery = new Delivery(DateTime.Now.AddDays(5));
+            var delivery = new Delivery(DateTime.Now.AddDays(5),Id);
             _deliveries.Add(delivery);
             var cont = 1;
 
@@ -63,7 +63,7 @@ namespace Store.Domain.StoreContext.Entities
                 if (cont == 5)
                 {
                     cont = 1;
-                    _deliveries.Add(new Delivery(DateTime.Now.AddDays(5)));
+                    _deliveries.Add(new Delivery(DateTime.Now.AddDays(5),Id));
                 }
                 cont ++;
             }

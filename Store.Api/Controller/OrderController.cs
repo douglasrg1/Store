@@ -23,5 +23,11 @@ namespace Store.Api.Controllers.OrderController
         {
             return _handle.Handle(Order);
         }
+        [HttpPost]
+        [Route("v1/delivery")]
+        public ICommandResult PostDelivery([FromBody]ShipOrderCommand delivery)
+        {
+            return _handle.Handle(delivery);
+        }
     }
 }

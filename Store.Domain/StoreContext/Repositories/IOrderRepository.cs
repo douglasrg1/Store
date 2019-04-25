@@ -8,5 +8,6 @@ namespace Store.Domain.StoreContext.Repositories
     {
         ProductQueryResult GetProductById(Guid id);
         void Save(Order order);
+        void AddShip(Delivery delivery);
     }
 }

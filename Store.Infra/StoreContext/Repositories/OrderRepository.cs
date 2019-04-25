@@ -16,6 +16,18 @@ namespace Store.Infra.StoreContext.Repositories
         {
             _context = context;
         }
+
+        public void AddShip(Delivery delivery)
+        {
+            _context.Connection.Execute(
+                "spAddOrderShip",
+                new{Id = delivery.Id, OrderId = delivery.OrderId,CreateDate = delivery.CreateDate,
+                    EstimatedDeliveryDate = delivery.EstimatedDeliveryDate,Status = delivery.Status},
+
+                commandType:CommandType.StoredProcedure
+            );
+        }
+
         public ProductQueryResult GetProductById(Guid id)
         {
             return _context.Connection.Query<ProductQueryResult>
