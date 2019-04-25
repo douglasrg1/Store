@@ -7,6 +7,11 @@ namespace Store.Tests.Fake
 {
     public class FakeOrderRepository : IOrderRepository
     {
+        public void AddShip(Delivery delivery)
+        {
+            
+        }
+
         public ProductQueryResult GetProductById(Guid id)
         {
             return new ProductQueryResult("teste","teste order","teste.img",10,10);

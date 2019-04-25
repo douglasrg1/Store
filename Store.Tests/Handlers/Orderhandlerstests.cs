@@ -32,5 +32,33 @@ namespace Store.Tests.Handlers
 
             Assert.IsTrue(orderHandler.IsValid);
         }
+
+        [TestMethod]
+        public void ShouldReturtrueWhenOrderShipIsValid()
+        {
+            var OrderId = Guid.NewGuid();
+            var Data = DateTime.Now.AddHours(1);
+
+            var ship =new ShipOrderCommand(Data,OrderId);
+            var orderHandler = new OrderHandlers(new FakeOrderRepository());
+            var result = orderHandler.Handle(ship);
+
+
+            Assert.IsTrue(orderHandler.IsValid);
+        }
+
+        [TestMethod]
+        public void ShouldReturFalseWhenOrderShipIsInvalid()
+        {
+            Guid OrderId = Guid.Empty;
+            var Data = DateTime.Now.AddHours(-1);
+
+            var ship =new ShipOrderCommand(Data,OrderId);
+            var orderHandler = new OrderHandlers(new FakeOrderRepository());
+            var result = orderHandler.Handle(ship);
+
+
+            Assert.IsTrue(orderHandler.Invalid);
+        }
     }
 }
