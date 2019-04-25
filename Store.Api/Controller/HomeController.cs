@@ -9,7 +9,7 @@ namespace Store.Api.Controllers
         [HttpGet]
         [Route("")]
         public string Get(){
-            return "Hello World2";
+            return "Hello World";
         }
     }
 }
